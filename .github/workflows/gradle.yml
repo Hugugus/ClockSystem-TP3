@@ -13,14 +13,14 @@ on:
   pull_request:
     branches: ["main"]
 
+env:
+  DISPLAY: ":99.0" # Set a display for Xvfb
+
 jobs:
   build:
     runs-on: ubuntu-latest
     permissions:
       contents: read
-
-    env:
-      DISPLAY: ":99.0" # Set a display for Xvfb
 
     services:
       xvfb:
