@@ -19,6 +19,9 @@ on:
   schedule:
     - cron: '36 21 * * 6'
 
+env:
+  DISPLAY: ":99.0" # Set a display for Xvfb
+
 jobs:
   analyze:
     name: Analyze (${{ matrix.language }})
@@ -48,7 +51,16 @@ jobs:
         # see https://docs.github.com/en/code-security/code-scanning/creating-an-advanced-setup-for-code-scanning/customizing-your-advanced-setup-for-code-scanning.
         # If you are analyzing a compiled language, you can modify the 'build-mode' for that language to customize how
         # your codebase is analyzed, see https://docs.github.com/en/code-security/code-scanning/creating-an-advanced-setup-for-code-scanning/codeql-code-scanning-for-compiled-languages
+    
+    services:
+      xvfb:
+        image: selenium/standalone-chrome:latest
+        options: -e VNC_SERVER=true -e VNC_PORT=5900
+      
+    
     steps:
+    - name: Start Xvfb
+      run: Xvfb $DISPLAY -ac -screen 0 1600x1200x24 > /dev/null 2>&1 &
     - name: Checkout repository
       uses: actions/checkout@v4
 
