@@ -34,9 +34,26 @@ jobs:
         id: pmd
         uses: pmd/pmd-github-action@v2
         with:
-          rulesets: 'category/java/bestpractices.xml'
+          rulesets: 'rulesets/java/quickstart.xml'
           sourcePath: 'app/src/main/java'
           analyzeModifiedFilesOnly: false
+      - name: Save PMD report
+        run: |
+          mkdir -p reports
+          cp pmd.xml reports/pmd-report.xml
+      - name: Check PMD Violations
+        run: |
+          violations=$(xmllint --xpath 'count(//violation)' reports/pmd-report.xml)
+          echo "Number of PMD violations: $violations"
+          threshold=5 # Set your threshold here
+          if [ "$violations" -gt "$threshold" ]; then
+            echo "PMD violations exceed the threshold"
+            exit 1
+          fi
+      - name: Upload SARIF file
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: pmd-report.sarif
       - name: Upload SARIF file
         uses: github/codeql-action/upload-sarif@v3
         with:
