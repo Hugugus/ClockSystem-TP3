@@ -22,7 +22,6 @@ permissions:
   id-token: write
       # Uncomment the permissions below if installing in a private repository.
   contents: read
-  actions: read
   
 jobs:
   analysis:
