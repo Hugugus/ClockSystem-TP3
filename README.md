@@ -1,4 +1,5 @@
 ![Java CI with Gradle](https://github.com/Hugugus/ClockSystem-TP3/actions/workflows/gradle.yml/badge.svg)
+![Dependabot](https://img.shields.io/badge/dependabot-enabled-brightgreen.svg)
 # ClockSystem
 This is a gradle-based Java project for a Clock with Swing GUI and JUnit5 unit tests. It has been created and used by Tom Mens for educational purposes at the University of Mons.
 
